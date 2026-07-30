@@ -15,7 +15,7 @@ export const mockLogEntries: LogEntry[] = [
   {
     id: 3,
     level: "error",
-    source: "file-manager",
+    source: "filezilla",
     message: "Upload failed: connection reset.",
     createdAt: new Date(Date.now() - 2 * 60_000).toISOString(),
     read: false,

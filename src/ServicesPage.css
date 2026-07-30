@@ -1,6 +1,62 @@
+.services-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+  min-height: 0;
+}
+
+.services-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.services-search {
+  flex: 0 1 22rem;
+}
+
+.services-body {
+  display: flex;
+  align-items: stretch;
+  gap: 2rem;
+  flex: 1;
+  min-height: 0;
+}
+
+.services-sidebar {
+  flex: 0 0 30%;
+  display: flex;
+  min-height: 0;
+}
+
+.services-ticker-wrapper {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.services-ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #d6d8db;
+  white-space: nowrap;
+}
+
 .services-grid {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  align-content: start;
   gap: 1rem;
-  margin-top: 1.5rem;
+  /* Room so the scrollbar doesn't sit flush against card borders. */
+  padding-right: 0.5rem;
 }

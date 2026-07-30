@@ -6,11 +6,15 @@ export interface ServiceDefinition {
    * the gatekeeper registry exists and reports the service as live;
    * undefined means it hasn't been seen yet. */
   apiUrl?: string;
+  /** Path segment under /services when this sub-app's UI is actually wired
+   * in (e.g. "filezilla" -> /services/filezilla). Undefined means there's
+   * nothing to navigate to yet. */
+  route?: string;
 }
 
 export const services: ServiceDefinition[] = [
   { name: "frame-extractor", description: "Upload a video, extract frames at an interval, download as a zip." },
-  { name: "file-manager", description: "Upload, organize into folders, preview, and download files." },
+  { name: "filezilla", description: "Upload, organize into folders, preview, and download files.", route: "filezilla" },
   { name: "lora-trainer", description: "Train an SDXL LoRA from a set of images on a throwaway cloud GPU." },
   {
     name: "image-upscaler",
@@ -21,9 +25,9 @@ export const services: ServiceDefinition[] = [
     description: "Generate SDXL images from a trained LoRA on a manually-controlled cloud GPU session.",
   },
   { name: "llm-chat", description: "Chat with a locally-hosted LLM — nothing leaves this machine." },
-  { name: "image-importer", description: "Paste a page URL and pull every image on it into file-manager." },
+  { name: "image-importer", description: "Paste a page URL and pull every image on it into filezilla." },
   {
     name: "insta-downloader",
-    description: "Paste a public Instagram post URL and pull its images (full carousels) into file-manager.",
+    description: "Paste a public Instagram post URL and pull its images (full carousels) into filezilla.",
   },
 ];
