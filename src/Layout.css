@@ -1,0 +1,134 @@
+.layout {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1.5rem;
+  height: 3.5rem;
+  flex-shrink: 0;
+  border-bottom: 1px solid #2a2c30;
+  background: #17181b;
+}
+
+.layout-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f0f0f0;
+}
+
+.layout-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.layout-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #9aa0a6;
+  text-decoration: none;
+  padding: 0.4rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.layout-link:hover {
+  color: #f0f0f0;
+}
+
+.layout-link.is-active {
+  color: #f0f0f0;
+  border-bottom-color: #448aff;
+}
+
+.layout-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 72rem;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.layout-nav-end {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.layout-notifications-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  border-radius: 12px;
+  background: #2a2c30;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.layout-notifications-button:hover {
+  background: #34373c;
+}
+
+.layout-notifications-button:focus-visible {
+  outline: 2px solid #448aff;
+  outline-offset: 2px;
+}
+
+.layout-notifications-button svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.drawer-panel.drawer-anchor-right.drawer-temporary {
+  width: 28rem;
+  max-width: 90vw;
+}
+
+.notifications-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.notifications-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.notifications-unread-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: #448aff;
+  flex-shrink: 0;
+}
+
+.notifications-row-top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.notifications-time {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #9aa0a6;
+}
