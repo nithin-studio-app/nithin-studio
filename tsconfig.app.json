@@ -16,13 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    // Mirrors the Vite dev-time alias so tsc/the IDE resolve the same
-    // sub-app to its local src — remove once it's a real published
-    // dependency in package.json instead.
-    "paths": {
-      "@nithin-studio-app/filezilla": ["../filezilla/src/index.ts"]
-    },
-
     /* Linting */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
