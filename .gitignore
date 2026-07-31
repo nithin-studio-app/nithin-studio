@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Per-developer local overrides (e.g. pointing a sub-app at its sibling
+# repo's src for HMR during development) — see vite.config.ts for the shape.
+local.config.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

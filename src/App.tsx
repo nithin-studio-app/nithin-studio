@@ -1,11 +1,11 @@
 import { lazy, Suspense } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { ProgressBar } from "@nithin-studio-app/ui-components";
 import { Layout } from "./Layout";
 
 const DashboardPage = lazy(() => import("./DashboardPage").then((m) => ({ default: m.DashboardPage })));
 const ServicesPage = lazy(() => import("./ServicesPage").then((m) => ({ default: m.ServicesPage })));
-const FilezillaPage = lazy(() => import("./FilezillaPage").then((m) => ({ default: m.FilezillaPage })));
+const FilezillaApp = lazy(() => import("@nithin-studio-app/filezilla").then((m) => ({ default: m.FilezillaApp })));
 
 function RouteFallback() {
   return (
@@ -16,6 +16,8 @@ function RouteFallback() {
 }
 
 export function App() {
+  const navigate = useNavigate();
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -36,11 +38,14 @@ export function App() {
             </Suspense>
           }
         />
+        {/* Only the mount point lives here — filezilla owns everything
+            beneath it (its own sub-routes for folder/file deep-linking),
+            so this never needs to change as that shape evolves. */}
         <Route
-          path="services/filezilla"
+          path="services/filezilla/*"
           element={
             <Suspense fallback={<RouteFallback />}>
-              <FilezillaPage />
+              <FilezillaApp basePath="/services/filezilla" onBack={() => navigate("/services")} />
             </Suspense>
           }
         />
