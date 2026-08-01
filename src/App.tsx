@@ -7,6 +7,7 @@ import { useServiceRegistry } from "./serviceRegistryContext";
 
 const DashboardPage = lazy(() => import("./DashboardPage").then((m) => ({ default: m.DashboardPage })));
 const AppsPage = lazy(() => import("./AppsPage").then((m) => ({ default: m.AppsPage })));
+const ServicesPage = lazy(() => import("./ServicesPage").then((m) => ({ default: m.ServicesPage })));
 const FilezillaApp = lazy(() => import("@nithin-studio-app/filezilla").then((m) => ({ default: m.FilezillaApp })));
 
 function RouteFallback() {
@@ -47,6 +48,14 @@ export function App() {
             element={
               <Suspense fallback={<RouteFallback />}>
                 <AppsPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="services"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <ServicesPage />
               </Suspense>
             }
           />

@@ -22,7 +22,12 @@ export function ServiceRegistryProvider({ children }: { children: ReactNode }) {
       const services = JSON.parse(event.data) as (RegisteredService & { name: string })[];
       const next: Registry = {};
       for (const service of services) {
-        next[service.name] = { base_url: service.base_url, registered_at: service.registered_at, status: service.status };
+        next[service.name] = {
+          base_url: service.base_url,
+          registered_at: service.registered_at,
+          kind: service.kind,
+          status: service.status,
+        };
       }
       setRegistry(next);
     };
