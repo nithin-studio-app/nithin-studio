@@ -1,4 +1,4 @@
-.services-page {
+.apps-page {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -6,18 +6,18 @@
   min-height: 0;
 }
 
-.services-header {
+.apps-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
 }
 
-.services-search {
+.apps-search {
   flex: 0 1 22rem;
 }
 
-.services-body {
+.apps-body {
   display: flex;
   align-items: stretch;
   gap: 2rem;
@@ -25,19 +25,19 @@
   min-height: 0;
 }
 
-.services-sidebar {
+.apps-sidebar {
   flex: 0 0 30%;
   display: flex;
   min-height: 0;
 }
 
-.services-ticker-wrapper {
+.apps-ticker-wrapper {
   flex: 1;
   min-height: 0;
   display: flex;
 }
 
-.services-ticker-item {
+.apps-ticker-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -48,7 +48,7 @@
   white-space: nowrap;
 }
 
-.services-grid {
+.apps-grid {
   flex: 1;
   min-width: 0;
   min-height: 0;
