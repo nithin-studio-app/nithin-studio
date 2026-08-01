@@ -15,13 +15,23 @@ import { apps } from "./apps";
 import { useServiceRegistry } from "./serviceRegistryContext";
 import "./AppsPage.css";
 
-const STATUS_LABEL = { healthy: "Available", down: "Down", "not-registered": "Not registered" } as const;
-const STATUS_COLOR = { healthy: "#64dd17", down: "#ff5252", "not-registered": "#9aa0a6" } as const;
+const STATUS_LABEL = {
+  healthy: "Available",
+  down: "Down",
+  "not-registered": "Not registered",
+  unknown: "Can't reach gatekeeper-api",
+} as const;
+const STATUS_COLOR = {
+  healthy: "#64dd17",
+  down: "#ff5252",
+  "not-registered": "#9aa0a6",
+  unknown: "#f5b342",
+} as const;
 
 export function AppsPage() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
-  const registry = useServiceRegistry();
+  const { registry, connected } = useServiceRegistry();
 
   const filteredApps = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -66,7 +76,9 @@ export function AppsPage() {
             </Text>
           ) : (
             filteredApps.map((app) => {
-              const status = (app.backendServiceName && registry[app.backendServiceName]?.status) || "not-registered";
+              const status = !connected
+                ? "unknown"
+                : (app.backendServiceName && registry[app.backendServiceName]?.status) || "not-registered";
               return (
                 <Card
                   key={app.name}

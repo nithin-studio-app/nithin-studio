@@ -12,8 +12,18 @@ export interface RegisteredService {
 
 export type Registry = Record<string, RegisteredService>;
 
-export const ServiceRegistryContext = createContext<Registry>({});
+export interface RegistryState {
+  registry: Registry;
+  /** False until the SSE stream has delivered at least one snapshot, and
+   * flips back to false on any drop (e.g. gatekeeper-api itself down, or
+   * reachable but unable to talk to Redis). Lets pages tell "gatekeeper-api
+   * says nothing is registered" apart from "we can't currently ask
+   * gatekeeper-api anything" — both otherwise look like an empty registry. */
+  connected: boolean;
+}
 
-export function useServiceRegistry(): Registry {
+export const ServiceRegistryContext = createContext<RegistryState>({ registry: {}, connected: false });
+
+export function useServiceRegistry(): RegistryState {
   return useContext(ServiceRegistryContext);
 }

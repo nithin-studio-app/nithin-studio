@@ -20,7 +20,7 @@ function RouteFallback() {
 
 function FilezillaRoute() {
   const navigate = useNavigate();
-  const registry = useServiceRegistry();
+  const { registry } = useServiceRegistry();
   // Undefined (rather than a stale/unreachable URL) when filezilla-api
   // isn't currently healthy — FileManager falls back to its own hardcoded
   // default in that case, same as before the registry existed.
