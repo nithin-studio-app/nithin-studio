@@ -2,7 +2,8 @@ import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { ProgressBar } from "@nithin-studio-app/ui-components";
 import { Layout } from "./Layout";
-import { ServiceRegistryProvider, useServiceRegistry } from "./serviceRegistry";
+import { ServiceRegistryProvider } from "./serviceRegistry";
+import { useServiceRegistry } from "./serviceRegistryContext";
 
 const DashboardPage = lazy(() => import("./DashboardPage").then((m) => ({ default: m.DashboardPage })));
 const AppsPage = lazy(() => import("./AppsPage").then((m) => ({ default: m.AppsPage })));
