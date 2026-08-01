@@ -69,6 +69,9 @@ export function Layout() {
           <NavLink to="/apps" className={navLinkClassName}>
             Apps
           </NavLink>
+          <NavLink to="/services" className={navLinkClassName}>
+            Services
+          </NavLink>
         </div>
         <div className="layout-nav-end">
           <button

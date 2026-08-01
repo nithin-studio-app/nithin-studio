@@ -1,10 +1,12 @@
 import { createContext, useContext } from "react";
 
 export type ServiceStatus = "healthy" | "down";
+export type ServiceKind = "api" | "infra";
 
 export interface RegisteredService {
   base_url: string;
   registered_at: string;
+  kind: ServiceKind;
   status: ServiceStatus;
 }
 
