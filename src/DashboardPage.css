@@ -1,0 +1,49 @@
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  /* Room so the scrollbar doesn't sit flush against card borders. */
+  padding-right: 0.5rem;
+}
+
+/* Without this, flex's default flex-shrink: 1 squashes these below their
+   natural content height to fit inside the 100% height above, instead of
+   the page just scrolling past them — the container should overflow, not
+   its children. */
+.dashboard-page > * {
+  flex-shrink: 0;
+}
+
+.dashboard-gauges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1.5rem;
+}
+
+.dashboard-gauge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dashboard-section-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-status-icon {
+  display: inline-flex;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.dashboard-status-icon svg {
+  width: 100%;
+  height: 100%;
+}
