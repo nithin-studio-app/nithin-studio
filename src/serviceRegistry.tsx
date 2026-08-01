@@ -1,19 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
+import type { RegisteredService, Registry } from "./serviceRegistryContext";
+import { ServiceRegistryContext } from "./serviceRegistryContext";
 
 const GATEKEEPER_URL = "http://localhost:8002";
-
-export type ServiceStatus = "healthy" | "down";
-
-export interface RegisteredService {
-  base_url: string;
-  registered_at: string;
-  status: ServiceStatus;
-}
-
-type Registry = Record<string, RegisteredService>;
-
-const ServiceRegistryContext = createContext<Registry>({});
 
 // One EventSource connection to gatekeeper-api's registry stream, shared by
 // every consumer via context — AppsPage (status chips) and App (the
@@ -40,8 +30,4 @@ export function ServiceRegistryProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return <ServiceRegistryContext.Provider value={registry}>{children}</ServiceRegistryContext.Provider>;
-}
-
-export function useServiceRegistry(): Registry {
-  return useContext(ServiceRegistryContext);
 }

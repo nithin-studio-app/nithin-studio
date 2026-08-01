@@ -12,7 +12,7 @@ import {
   TextField,
 } from "@nithin-studio-app/ui-components";
 import { apps } from "./apps";
-import { useServiceRegistry } from "./serviceRegistry";
+import { useServiceRegistry } from "./serviceRegistryContext";
 import "./AppsPage.css";
 
 const STATUS_LABEL = { healthy: "Available", down: "Down", "not-registered": "Not registered" } as const;
