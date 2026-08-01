@@ -17,40 +17,17 @@
   flex: 0 1 22rem;
 }
 
-.apps-body {
-  display: flex;
-  align-items: stretch;
-  gap: 2rem;
-  flex: 1;
-  min-height: 0;
+.apps-card-title {
+  text-transform: capitalize;
+  font-weight: 700;
 }
 
-.apps-sidebar {
-  flex: 0 0 30%;
-  display: flex;
-  min-height: 0;
-}
-
-.apps-ticker-wrapper {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-}
-
-.apps-ticker-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.35rem 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #d6d8db;
-  white-space: nowrap;
+.apps-card-divider {
+  margin-top: 1rem;
 }
 
 .apps-grid {
   flex: 1;
-  min-width: 0;
   min-height: 0;
   overflow-y: auto;
   display: grid;

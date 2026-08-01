@@ -1,33 +1,21 @@
-import { Card, CardContent, CardHeader, Chip, Text } from "@nithin-studio-app/ui-components";
+import { Card, CardContent, CardHeader, Divider, Text } from "@nithin-studio-app/ui-components";
 import { useServiceRegistry } from "./serviceRegistryContext";
 import type { RegisteredService } from "./serviceRegistryContext";
+import { StatusDot } from "./StatusDot";
 import "./ServicesPage.css";
 
 const STATUS_LABEL = { healthy: "Healthy", down: "Unreachable" } as const;
-const STATUS_COLOR = { healthy: "#64dd17", down: "#ff5252" } as const;
-
-// A pulsing dot for "healthy" reads as alive/live-updating (this page is
-// SSE-driven), rather than a static pill that looks the same whether it
-// updated a second ago or an hour ago. "Down" stays a plain static dot —
-// nothing to pulse about.
-function StatusDot({ status }: { status: RegisteredService["status"] }) {
-  return <span className={`status-dot status-dot--${status}`} />;
-}
 
 function ServiceCard({ name, service }: { name: string; service: RegisteredService }) {
   return (
     <Card key={name} variant="outlined">
       <CardHeader
-        title={name}
-        action={
-          <Chip
-            label={STATUS_LABEL[service.status]}
-            icon={<StatusDot status={service.status} />}
-            color={STATUS_COLOR[service.status]}
-            variant="outlined"
-          />
-        }
+        title={<span className="services-card-title">{name}</span>}
+        action={<StatusDot status={service.status} label={STATUS_LABEL[service.status]} />}
       />
+      <div className="services-card-divider">
+        <Divider inset />
+      </div>
       <CardContent>
         <Text variant="body2" color="#9aa0a6">
           {service.base_url}

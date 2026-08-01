@@ -22,35 +22,12 @@
   padding-right: 0.5rem;
 }
 
-.status-dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: currentColor;
-  flex-shrink: 0;
+.services-card-title {
+  text-transform: capitalize;
+  font-weight: 700;
 }
 
-.status-dot--healthy {
-  animation: status-dot-pulse 1.8s ease-in-out infinite;
+.services-card-divider {
+  margin-top: 1rem;
 }
 
-@keyframes status-dot-pulse {
-  0% {
-    box-shadow: 0 0 0 0 currentColor;
-    opacity: 1;
-  }
-  70% {
-    box-shadow: 0 0 0 0.35rem transparent;
-    opacity: 0.6;
-  }
-  100% {
-    box-shadow: 0 0 0 0 transparent;
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .status-dot--healthy {
-    animation: none;
-  }
-}

@@ -1,32 +1,18 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Avatar,
-  Card,
-  CardHeader,
-  CardContent,
-  Chip,
-  Marquee,
-  SearchIcon,
-  Text,
-  TextField,
-} from "@nithin-studio-app/ui-components";
+import { Card, CardHeader, CardContent, Divider, SearchIcon, Text, TextField } from "@nithin-studio-app/ui-components";
 import { apps } from "./apps";
 import { useServiceRegistry } from "./serviceRegistryContext";
+import { StatusDot } from "./StatusDot";
+import type { StatusKind } from "./StatusDot";
 import "./AppsPage.css";
 
-const STATUS_LABEL = {
+const STATUS_LABEL: Record<StatusKind, string> = {
   healthy: "Available",
   down: "Down",
   "not-registered": "Not registered",
   unknown: "Can't reach gatekeeper-api",
-} as const;
-const STATUS_COLOR = {
-  healthy: "#64dd17",
-  down: "#ff5252",
-  "not-registered": "#9aa0a6",
-  unknown: "#f5b342",
-} as const;
+};
 
 export function AppsPage() {
   const navigate = useNavigate();
@@ -55,50 +41,38 @@ export function AppsPage() {
         </div>
       </div>
 
-      <div className="apps-body">
-        <aside className="apps-sidebar">
-          <div className="apps-ticker-wrapper" aria-hidden="true">
-            <Marquee duration={22}>
-              {apps.map((app) => (
-                <div className="apps-ticker-item" key={app.name}>
-                  <Avatar alt={app.name} size={2} />
-                  <span>{app.name}</span>
+      <div className="apps-grid">
+        {filteredApps.length === 0 ? (
+          <Text variant="body2" color="#9aa0a6">
+            No apps match "{query}".
+          </Text>
+        ) : (
+          filteredApps.map((app) => {
+            const status: StatusKind = !connected
+              ? "unknown"
+              : (app.backendServiceName && registry[app.backendServiceName]?.status) || "not-registered";
+            return (
+              <Card
+                key={app.name}
+                variant="outlined"
+                onClick={app.route ? () => navigate(`/apps/${app.route}`) : undefined}
+              >
+                <CardHeader
+                  title={<span className="apps-card-title">{app.name}</span>}
+                  action={<StatusDot status={status} label={STATUS_LABEL[status]} />}
+                />
+                <div className="apps-card-divider">
+                  <Divider inset />
                 </div>
-              ))}
-            </Marquee>
-          </div>
-        </aside>
-
-        <div className="apps-grid">
-          {filteredApps.length === 0 ? (
-            <Text variant="body2" color="#9aa0a6">
-              No apps match "{query}".
-            </Text>
-          ) : (
-            filteredApps.map((app) => {
-              const status = !connected
-                ? "unknown"
-                : (app.backendServiceName && registry[app.backendServiceName]?.status) || "not-registered";
-              return (
-                <Card
-                  key={app.name}
-                  variant="outlined"
-                  onClick={app.route ? () => navigate(`/apps/${app.route}`) : undefined}
-                >
-                  <CardHeader
-                    title={app.name}
-                    action={<Chip label={STATUS_LABEL[status]} color={STATUS_COLOR[status]} variant="outlined" />}
-                  />
-                  <CardContent>
-                    <Text variant="body2" color="#9aa0a6">
-                      {app.description}
-                    </Text>
-                  </CardContent>
-                </Card>
-              );
-            })
-          )}
-        </div>
+                <CardContent>
+                  <Text variant="body2" color="#9aa0a6">
+                    {app.description}
+                  </Text>
+                </CardContent>
+              </Card>
+            );
+          })
+        )}
       </div>
     </div>
   );
