@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import type { RegisteredService, Registry } from "./serviceRegistryContext";
 import { ServiceRegistryContext } from "./serviceRegistryContext";
 
-const GATEKEEPER_URL = "http://localhost:8002";
+const GATEKEEPER_URL = "http://localhost:8000";
 
 // One EventSource connection to gatekeeper-api's registry stream, shared by
 // every consumer via context — AppsPage (status chips) and App (the
@@ -11,12 +11,14 @@ const GATEKEEPER_URL = "http://localhost:8002";
 // instead of each opening their own connection.
 export function ServiceRegistryProvider({ children }: { children: ReactNode }) {
   const [registry, setRegistry] = useState<Registry>({});
+  const [connected, setConnected] = useState(false);
 
   useEffect(() => {
     // EventSource reconnects on its own after a drop — no manual retry
-    // logic needed. While disconnected, the registry just stays at its
-    // last-known snapshot (or empty, if gatekeeper-api was never reached),
-    // which degrades every service to "Not registered" rather than crashing.
+    // logic needed. `connected` tracks whether we currently have a live
+    // stream; pages use it to distinguish "genuinely nothing registered"
+    // from "can't reach gatekeeper-api right now" (e.g. its Redis is down),
+    // which otherwise both present as an empty registry.
     const source = new EventSource(`${GATEKEEPER_URL}/services/stream`);
     source.onmessage = (event) => {
       const services = JSON.parse(event.data) as (RegisteredService & { name: string })[];
@@ -30,9 +32,13 @@ export function ServiceRegistryProvider({ children }: { children: ReactNode }) {
         };
       }
       setRegistry(next);
+      setConnected(true);
     };
+    source.onerror = () => setConnected(false);
     return () => source.close();
   }, []);
 
-  return <ServiceRegistryContext.Provider value={registry}>{children}</ServiceRegistryContext.Provider>;
+  return (
+    <ServiceRegistryContext.Provider value={{ registry, connected }}>{children}</ServiceRegistryContext.Provider>
+  );
 }

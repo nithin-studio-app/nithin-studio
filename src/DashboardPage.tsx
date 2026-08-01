@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
   Text,
+  WarningIcon,
 } from "@nithin-studio-app/ui-components";
 import type { ReactNode } from "react";
 import { apps } from "./apps";
@@ -32,23 +33,26 @@ function availabilityPct(gauge: Gauge): number {
 interface StatusRow {
   name: string;
   base_url?: string;
-  status: "healthy" | "down" | "not-registered";
+  status: "healthy" | "down" | "not-registered" | "unknown";
 }
 
 const STATUS_LABEL: Record<StatusRow["status"], string> = {
   healthy: "Healthy",
   down: "Down",
   "not-registered": "Not registered",
+  unknown: "Can't reach gatekeeper-api",
 };
 const STATUS_COLOR: Record<StatusRow["status"], string> = {
   healthy: "#64dd17",
   down: "#ff5252",
   "not-registered": "#9aa0a6",
+  unknown: "#f5b342",
 };
 const STATUS_ICON: Record<StatusRow["status"], ReactNode> = {
   healthy: <CheckIcon />,
   down: <ErrorIcon />,
   "not-registered": <HelpIcon />,
+  unknown: <WarningIcon />,
 };
 
 function toRows(entries: [string, RegisteredService][]): StatusRow[] {
@@ -57,9 +61,13 @@ function toRows(entries: [string, RegisteredService][]): StatusRow[] {
 
 const MAX_ROWS = 5;
 
-function StatusTable({ rows }: { rows: StatusRow[] }) {
+function StatusTable({ rows, connected }: { rows: StatusRow[]; connected: boolean }) {
   if (rows.length === 0) {
-    return (
+    return !connected ? (
+      <Text variant="body2" color="#f5b342">
+        Can't reach gatekeeper-api.
+      </Text>
+    ) : (
       <Text variant="body2" color="#9aa0a6">
         Nothing here yet.
       </Text>
@@ -110,14 +118,15 @@ function StatusTable({ rows }: { rows: StatusRow[] }) {
 }
 
 export function DashboardPage() {
-  const registry = useServiceRegistry();
+  const { registry, connected } = useServiceRegistry();
   const registryEntries = Object.entries(registry).sort(([a], [b]) => a.localeCompare(b));
   const apiEntries = registryEntries.filter(([, service]) => service.kind === "api");
   const infraEntries = registryEntries.filter(([, service]) => service.kind === "infra");
 
   const appRows: StatusRow[] = apps.map((app) => {
     const entry = app.backendServiceName ? registry[app.backendServiceName] : undefined;
-    return { name: app.name, base_url: entry?.base_url, status: entry?.status ?? "not-registered" };
+    const status = !connected ? "unknown" : (entry?.status ?? "not-registered");
+    return { name: app.name, base_url: entry?.base_url, status };
   });
 
   const sections = [
@@ -136,6 +145,12 @@ export function DashboardPage() {
   return (
     <div className="dashboard-page">
       <Text variant="h4">Dashboard</Text>
+
+      {!connected && (
+        <Text variant="body2" color="#f5b342">
+          Can't reach gatekeeper-api — check it (and its Redis) are running. Statuses below are unknown, not down.
+        </Text>
+      )}
 
       <Card variant="outlined">
         <CardContent>
@@ -157,7 +172,7 @@ export function DashboardPage() {
           <Card variant="outlined" key={section.label}>
             <CardHeader title={section.label} />
             <CardContent>
-              <StatusTable rows={section.rows} />
+              <StatusTable rows={section.rows} connected={connected} />
             </CardContent>
           </Card>
         ))}
