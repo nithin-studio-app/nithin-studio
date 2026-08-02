@@ -9,6 +9,9 @@ const DashboardPage = lazy(() => import("./DashboardPage").then((m) => ({ defaul
 const AppsPage = lazy(() => import("./AppsPage").then((m) => ({ default: m.AppsPage })));
 const ServicesPage = lazy(() => import("./ServicesPage").then((m) => ({ default: m.ServicesPage })));
 const FilezillaApp = lazy(() => import("@nithin-studio-app/filezilla").then((m) => ({ default: m.FilezillaApp })));
+const ImageImporter = lazy(() =>
+  import("@nithin-studio-app/image-importer").then((m) => ({ default: m.ImageImporter })),
+);
 
 function RouteFallback() {
   return (
@@ -27,6 +30,26 @@ function FilezillaRoute() {
   const apiBaseUrl = registry["filezilla-api"]?.status === "healthy" ? registry["filezilla-api"].base_url : undefined;
 
   return <FilezillaApp basePath="/apps/filezilla" onBack={() => navigate("/apps")} apiBaseUrl={apiBaseUrl} />;
+}
+
+function ImageImporterRoute() {
+  const navigate = useNavigate();
+  const { registry } = useServiceRegistry();
+  // Undefined (rather than a stale/unreachable URL) when a service isn't
+  // currently healthy — ImageImporter falls back to its own hardcoded
+  // defaults in that case, same pattern FilezillaRoute uses above.
+  const apiBaseUrl =
+    registry["image-importer-api"]?.status === "healthy" ? registry["image-importer-api"].base_url : undefined;
+  const filezillaApiBaseUrl =
+    registry["filezilla-api"]?.status === "healthy" ? registry["filezilla-api"].base_url : undefined;
+
+  return (
+    <ImageImporter
+      onBack={() => navigate("/apps")}
+      apiBaseUrl={apiBaseUrl}
+      filezillaApiBaseUrl={filezillaApiBaseUrl}
+    />
+  );
 }
 
 export function App() {
@@ -67,6 +90,17 @@ export function App() {
             element={
               <Suspense fallback={<RouteFallback />}>
                 <FilezillaRoute />
+              </Suspense>
+            }
+          />
+          {/* No sub-routes (yet) — image-importer has no internal
+              deep-linking, so this is a plain leaf route rather than a
+              wildcard mount like filezilla's. */}
+          <Route
+            path="apps/image-importer"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <ImageImporterRoute />
               </Suspense>
             }
           />

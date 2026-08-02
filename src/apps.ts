@@ -25,4 +25,10 @@ export const apps: AppDefinition[] = [
     route: "filezilla",
     backendServiceName: "filezilla-api",
   },
+  {
+    name: "image-importer",
+    description: "Paste a page or Instagram post URL and pull its images into filezilla.",
+    route: "image-importer",
+    backendServiceName: "image-importer-api",
+  },
 ];
