@@ -12,6 +12,9 @@ const FilezillaApp = lazy(() => import("@nithin-studio-app/filezilla").then((m) 
 const ImageImporter = lazy(() =>
   import("@nithin-studio-app/image-importer").then((m) => ({ default: m.ImageImporter })),
 );
+const FrameExtractor = lazy(() =>
+  import("@nithin-studio-app/frame-extractor").then((m) => ({ default: m.FrameExtractor })),
+);
 
 function RouteFallback() {
   return (
@@ -50,6 +53,15 @@ function ImageImporterRoute() {
       filezillaApiBaseUrl={filezillaApiBaseUrl}
     />
   );
+}
+
+function FrameExtractorRoute() {
+  const navigate = useNavigate();
+  const { registry } = useServiceRegistry();
+  const filezillaApiBaseUrl =
+    registry["filezilla-api"]?.status === "healthy" ? registry["filezilla-api"].base_url : undefined;
+
+  return <FrameExtractor onBack={() => navigate("/apps")} filezillaApiBaseUrl={filezillaApiBaseUrl} />;
 }
 
 export function App() {
@@ -101,6 +113,16 @@ export function App() {
             element={
               <Suspense fallback={<RouteFallback />}>
                 <ImageImporterRoute />
+              </Suspense>
+            }
+          />
+          {/* No sub-routes (yet), same reasoning as image-importer's route
+              above. */}
+          <Route
+            path="apps/frame-extractor"
+            element={
+              <Suspense fallback={<RouteFallback />}>
+                <FrameExtractorRoute />
               </Suspense>
             }
           />
