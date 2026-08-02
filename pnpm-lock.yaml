@@ -9,8 +9,11 @@ importers:
   .:
     dependencies:
       '@nithin-studio-app/filezilla':
-        specifier: ^0.0.2
-        version: 0.0.2(@nithin-studio-app/ui-components@0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
+        specifier: ^0.1.0
+        version: 0.1.0(@nithin-studio-app/ui-components@0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
+      '@nithin-studio-app/image-importer':
+        specifier: ^0.1.0
+        version: 0.1.0(@nithin-studio-app/ui-components@0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@nithin-studio-app/ui-components':
         specifier: ^0.2.4
         version: 0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -230,13 +233,20 @@ packages:
       '@emnapi/core': ^2.0.0-alpha.3
       '@emnapi/runtime': ^2.0.0-alpha.3
 
-  '@nithin-studio-app/filezilla@0.0.2':
-    resolution: {integrity: sha512-XxOKtt/tUoe9xCda+xah/n46R0Rg3eBAsgfitksZyzs9zKfwu7hzU+kMqmRzN1f/2yTHrI1yIWOQbmabqfLgxQ==, tarball: https://npm.pkg.github.com/download/@nithin-studio-app/filezilla/0.0.2/5dbdfc31239e10bfdb984753da1382e932a91c1b}
+  '@nithin-studio-app/filezilla@0.1.0':
+    resolution: {integrity: sha512-90VmU2IG/NiE9LZBU3jlMzKWTK/9FM/8u9D4zdQdABjvwi2WlBCIEzfdiM++vjlsEZ6tDPorKTNqiFQKEu3pQA==, tarball: https://npm.pkg.github.com/download/@nithin-studio-app/filezilla/0.1.0/1b463f38b759087e184971923710e0dacdfc5b71}
     peerDependencies:
       '@nithin-studio-app/ui-components': ^0.2.4
       react: ^19.0.0
       react-dom: ^19.0.0
       react-router-dom: ^7.0.0
+
+  '@nithin-studio-app/image-importer@0.1.0':
+    resolution: {integrity: sha512-FTXWGbW2QHQmtyivz0vFyd7rFz18db7GwRMnPP7XjUrowGrmz2r+I5WjGppofCTmamXsdUF5ypwKzqAoWckaPg==, tarball: https://npm.pkg.github.com/download/@nithin-studio-app/image-importer/0.1.0/29600b334303d9cbf10d6700699d44c3a66106ec}
+    peerDependencies:
+      '@nithin-studio-app/ui-components': ^0.2.4
+      react: ^19.0.0
+      react-dom: ^19.0.0
 
   '@nithin-studio-app/ui-components@0.2.4':
     resolution: {integrity: sha512-dpnDAjscokZjI1e8AJbZgP8IdwVrvXnC/Bn2/gSP96iJUp4tVGkqD2pvBy8xqitwZ8ibNDGMJmkfRwaH0eruIA==, tarball: https://npm.pkg.github.com/download/@nithin-studio-app/ui-components/0.2.4/d4f192b11a0ae935324507a0bd767f2056da3690}
@@ -1189,12 +1199,18 @@ snapshots:
       '@tybys/wasm-util': 0.10.3
     optional: true
 
-  '@nithin-studio-app/filezilla@0.0.2(@nithin-studio-app/ui-components@0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
+  '@nithin-studio-app/filezilla@0.1.0(@nithin-studio-app/ui-components@0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react-router-dom@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@nithin-studio-app/ui-components': 0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
       react-router-dom: 7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+
+  '@nithin-studio-app/image-importer@0.1.0(@nithin-studio-app/ui-components@0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+    dependencies:
+      '@nithin-studio-app/ui-components': 0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
 
   '@nithin-studio-app/ui-components@0.2.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:

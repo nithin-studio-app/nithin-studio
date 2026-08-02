@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+.git
+.github
+local.config.json
+*.local
+.vscode
+.idea
+.DS_Store
