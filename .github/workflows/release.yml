@@ -64,6 +64,12 @@ jobs:
         id: version
         run: echo "value=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
 
+      # GitHub-hosted runners are amd64 — QEMU is what lets buildx cross-
+      # compile for arm64 (the target below) despite that.
+      - uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
       - uses: docker/setup-buildx-action@v3
 
       - uses: docker/login-action@v3
@@ -76,12 +82,15 @@ jobs:
       # every other repo's release — the image and the version-sync PR both
       # come from this state. The Dockerfile's own npm_auth_token secret
       # (for installing the private @nithin-studio-app/* deps mid-build) is
-      # separate from the ghcr.io login above.
+      # separate from the ghcr.io login above. linux/arm64 only, targeting
+      # this machine specifically — add linux/amd64 back to the platforms
+      # list if this ever needs to run somewhere else too.
       - name: Build and push image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
+          platforms: linux/arm64
           secrets: |
             npm_auth_token=${{ secrets.CHANGESETS_PAT }}
           tags: |
