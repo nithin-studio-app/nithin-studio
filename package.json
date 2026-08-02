@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@nithin-studio-app/filezilla": "^0.1.0",
-    "@nithin-studio-app/image-importer": "^0.1.0",
+    "@nithin-studio-app/image-importer": "^0.1.1",
     "@nithin-studio-app/ui-components": "^0.2.4",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
