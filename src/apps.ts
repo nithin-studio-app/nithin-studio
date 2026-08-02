@@ -31,11 +31,4 @@ export const apps: AppDefinition[] = [
     route: "image-importer",
     backendServiceName: "image-importer-api",
   },
-  {
-    name: "frame-extractor",
-    description: "Upload a video, extract frames at an interval, download as a zip.",
-    route: "frame-extractor",
-    // No backend yet — UI-only with mock data until frame-extractor-api
-    // exists, so this intentionally has no backendServiceName.
-  },
 ];
