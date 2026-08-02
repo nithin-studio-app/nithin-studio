@@ -12,9 +12,13 @@ const FilezillaApp = lazy(() => import("@nithin-studio-app/filezilla").then((m) 
 const ImageImporter = lazy(() =>
   import("@nithin-studio-app/image-importer").then((m) => ({ default: m.ImageImporter })),
 );
-const FrameExtractor = lazy(() =>
-  import("@nithin-studio-app/frame-extractor").then((m) => ({ default: m.FrameExtractor })),
-);
+// frame-extractor isn't published yet — @nithin-studio-app/frame-extractor
+// only resolves via the local Vite alias, so this (and everything else
+// frame-extractor-related below) stays commented out until it has an
+// initial release, or CI/pnpm build fails trying to resolve the import.
+// const FrameExtractor = lazy(() =>
+//   import("@nithin-studio-app/frame-extractor").then((m) => ({ default: m.FrameExtractor })),
+// );
 
 function RouteFallback() {
   return (
@@ -55,14 +59,14 @@ function ImageImporterRoute() {
   );
 }
 
-function FrameExtractorRoute() {
-  const navigate = useNavigate();
-  const { registry } = useServiceRegistry();
-  const filezillaApiBaseUrl =
-    registry["filezilla-api"]?.status === "healthy" ? registry["filezilla-api"].base_url : undefined;
-
-  return <FrameExtractor onBack={() => navigate("/apps")} filezillaApiBaseUrl={filezillaApiBaseUrl} />;
-}
+// function FrameExtractorRoute() {
+//   const navigate = useNavigate();
+//   const { registry } = useServiceRegistry();
+//   const filezillaApiBaseUrl =
+//     registry["filezilla-api"]?.status === "healthy" ? registry["filezilla-api"].base_url : undefined;
+//
+//   return <FrameExtractor onBack={() => navigate("/apps")} filezillaApiBaseUrl={filezillaApiBaseUrl} />;
+// }
 
 export function App() {
   return (
@@ -118,14 +122,14 @@ export function App() {
           />
           {/* No sub-routes (yet), same reasoning as image-importer's route
               above. */}
-          <Route
+          {/* <Route
             path="apps/frame-extractor"
             element={
               <Suspense fallback={<RouteFallback />}>
                 <FrameExtractorRoute />
               </Suspense>
             }
-          />
+          /> */}
         </Route>
       </Routes>
     </ServiceRegistryProvider>
