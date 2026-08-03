@@ -7,6 +7,12 @@
   overflow-y: auto;
 }
 
+/* Same card tint as DashboardPage.css — see its comment. */
+.services-page .card {
+  background: #17181b;
+  border-color: #7e57c2; /* Material "Deep Purple 400" */
+}
+
 .services-section {
   display: flex;
   flex-direction: column;
@@ -23,11 +29,14 @@
 }
 
 .services-card-title {
-  text-transform: capitalize;
   font-weight: 700;
 }
 
 .services-card-divider {
   margin-top: 1rem;
+}
+
+.services-page .card-actions {
+  justify-content: flex-end;
 }
 

@@ -26,18 +26,16 @@ export const apps: AppDefinition[] = [
     backendServiceName: "filezilla-api",
   },
   {
-    name: "image-importer",
-    description: "Paste a page or Instagram post URL and pull its images into filezilla.",
-    route: "image-importer",
-    backendServiceName: "image-importer-api",
+    name: "media-importer",
+    description: "Paste a page or Instagram post URL and pull its images and videos into filezilla.",
+    route: "media-importer",
+    backendServiceName: "media-importer-api",
   },
-  // frame-extractor isn't published yet — commented out until it has an
-  // initial release, see App.tsx for the matching route.
-  // {
-  //   name: "frame-extractor",
-  //   description: "Upload a video, extract frames at an interval, download as a zip.",
-  //   route: "frame-extractor",
-  //   // No backend yet — UI-only with mock data until frame-extractor-api
-  //   // exists, so this intentionally has no backendServiceName.
-  // },
+  {
+    name: "frame-extractor",
+    description: "Upload a video, extract frames at an interval, download as a zip.",
+    route: "frame-extractor",
+    // No backend yet — UI-only with mock data until frame-extractor-api
+    // exists, so this intentionally has no backendServiceName.
+  },
 ];

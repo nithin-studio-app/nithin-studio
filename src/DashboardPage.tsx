@@ -56,7 +56,7 @@ const STATUS_ICON: Record<StatusRow["status"], ReactNode> = {
 };
 
 function toRows(entries: [string, RegisteredService][]): StatusRow[] {
-  return entries.map(([name, service]) => ({ name, base_url: service.base_url, status: service.status }));
+  return entries.map(([, service]) => ({ name: service.title, base_url: service.base_url, status: service.status }));
 }
 
 const MAX_ROWS = 5;

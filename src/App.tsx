@@ -9,16 +9,12 @@ const DashboardPage = lazy(() => import("./DashboardPage").then((m) => ({ defaul
 const AppsPage = lazy(() => import("./AppsPage").then((m) => ({ default: m.AppsPage })));
 const ServicesPage = lazy(() => import("./ServicesPage").then((m) => ({ default: m.ServicesPage })));
 const FilezillaApp = lazy(() => import("@nithin-studio-app/filezilla").then((m) => ({ default: m.FilezillaApp })));
-const ImageImporter = lazy(() =>
-  import("@nithin-studio-app/image-importer").then((m) => ({ default: m.ImageImporter })),
+const MediaImporter = lazy(() =>
+  import("@nithin-studio-app/media-importer").then((m) => ({ default: m.MediaImporter })),
 );
-// frame-extractor isn't published yet — @nithin-studio-app/frame-extractor
-// only resolves via the local Vite alias, so this (and everything else
-// frame-extractor-related below) stays commented out until it has an
-// initial release, or CI/pnpm build fails trying to resolve the import.
-// const FrameExtractor = lazy(() =>
-//   import("@nithin-studio-app/frame-extractor").then((m) => ({ default: m.FrameExtractor })),
-// );
+const FrameExtractor = lazy(() =>
+  import("@nithin-studio-app/frame-extractor").then((m) => ({ default: m.FrameExtractor })),
+);
 
 function RouteFallback() {
   return (
@@ -39,19 +35,19 @@ function FilezillaRoute() {
   return <FilezillaApp basePath="/apps/filezilla" onBack={() => navigate("/apps")} apiBaseUrl={apiBaseUrl} />;
 }
 
-function ImageImporterRoute() {
+function MediaImporterRoute() {
   const navigate = useNavigate();
   const { registry } = useServiceRegistry();
   // Undefined (rather than a stale/unreachable URL) when a service isn't
-  // currently healthy — ImageImporter falls back to its own hardcoded
+  // currently healthy — MediaImporter falls back to its own hardcoded
   // defaults in that case, same pattern FilezillaRoute uses above.
   const apiBaseUrl =
-    registry["image-importer-api"]?.status === "healthy" ? registry["image-importer-api"].base_url : undefined;
+    registry["media-importer-api"]?.status === "healthy" ? registry["media-importer-api"].base_url : undefined;
   const filezillaApiBaseUrl =
     registry["filezilla-api"]?.status === "healthy" ? registry["filezilla-api"].base_url : undefined;
 
   return (
-    <ImageImporter
+    <MediaImporter
       onBack={() => navigate("/apps")}
       apiBaseUrl={apiBaseUrl}
       filezillaApiBaseUrl={filezillaApiBaseUrl}
@@ -59,14 +55,14 @@ function ImageImporterRoute() {
   );
 }
 
-// function FrameExtractorRoute() {
-//   const navigate = useNavigate();
-//   const { registry } = useServiceRegistry();
-//   const filezillaApiBaseUrl =
-//     registry["filezilla-api"]?.status === "healthy" ? registry["filezilla-api"].base_url : undefined;
-//
-//   return <FrameExtractor onBack={() => navigate("/apps")} filezillaApiBaseUrl={filezillaApiBaseUrl} />;
-// }
+function FrameExtractorRoute() {
+  const navigate = useNavigate();
+  const { registry } = useServiceRegistry();
+  const filezillaApiBaseUrl =
+    registry["filezilla-api"]?.status === "healthy" ? registry["filezilla-api"].base_url : undefined;
+
+  return <FrameExtractor onBack={() => navigate("/apps")} filezillaApiBaseUrl={filezillaApiBaseUrl} />;
+}
 
 export function App() {
   return (
@@ -109,27 +105,27 @@ export function App() {
               </Suspense>
             }
           />
-          {/* No sub-routes (yet) — image-importer has no internal
+          {/* No sub-routes (yet) — media-importer has no internal
               deep-linking, so this is a plain leaf route rather than a
               wildcard mount like filezilla's. */}
           <Route
-            path="apps/image-importer"
+            path="apps/media-importer"
             element={
               <Suspense fallback={<RouteFallback />}>
-                <ImageImporterRoute />
+                <MediaImporterRoute />
               </Suspense>
             }
           />
-          {/* No sub-routes (yet), same reasoning as image-importer's route
+          {/* No sub-routes (yet), same reasoning as media-importer's route
               above. */}
-          {/* <Route
+          <Route
             path="apps/frame-extractor"
             element={
               <Suspense fallback={<RouteFallback />}>
                 <FrameExtractorRoute />
               </Suspense>
             }
-          /> */}
+          />
         </Route>
       </Routes>
     </ServiceRegistryProvider>

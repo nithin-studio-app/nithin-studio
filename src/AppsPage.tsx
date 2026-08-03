@@ -1,6 +1,16 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardHeader, CardContent, Divider, SearchIcon, Text, TextField } from "@nithin-studio-app/ui-components";
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardContent,
+  CloseIcon,
+  Divider,
+  SearchIcon,
+  Text,
+  TextField,
+} from "@nithin-studio-app/ui-components";
 import { apps } from "./apps";
 import { useServiceRegistry } from "./serviceRegistryContext";
 import { StatusDot } from "./StatusDot";
@@ -35,6 +45,18 @@ export function AppsPage() {
             value={query}
             onChange={setQuery}
             startAdornment={<SearchIcon />}
+            endAdornment={
+              query && (
+                <button
+                  type="button"
+                  className="apps-search-clear"
+                  onClick={() => setQuery("")}
+                  aria-label="Clear search"
+                >
+                  <CloseIcon />
+                </button>
+              )
+            }
             fullWidth
             aria-label="Search apps"
           />
@@ -43,9 +65,22 @@ export function AppsPage() {
 
       <div className="apps-grid">
         {filteredApps.length === 0 ? (
-          <Text variant="body2" color="#9aa0a6">
-            No apps match "{query}".
-          </Text>
+          <div className="apps-empty-state-wrapper">
+            <Card variant="outlined">
+              <div className="apps-empty-state">
+                <span className="apps-empty-state-icon" aria-hidden="true">
+                  <SearchIcon />
+                </span>
+                <Text variant="h6">No apps found</Text>
+                <Text variant="body2" color="#9aa0a6">
+                  Nothing matches "{query}". Try a different search.
+                </Text>
+                <Button variant="outlined" size="small" color="#b39ddb" onClick={() => setQuery("")}>
+                  Clear search
+                </Button>
+              </div>
+            </Card>
+          </div>
         ) : (
           filteredApps.map((app) => {
             const status: StatusKind = !connected

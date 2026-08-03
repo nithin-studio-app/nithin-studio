@@ -9,6 +9,15 @@
   padding-right: 0.5rem;
 }
 
+/* Tint the shared Card component's default near-black surface toward the
+   purple/indigo theme instead — scoped to this page only (not
+   ui-components' own Card.css) so sub-apps mounted elsewhere in
+   .layout-content keep their own card styling untouched. */
+.dashboard-page .card {
+  background: #17181b;
+  border-color: #7e57c2; /* Material "Deep Purple 400" */
+}
+
 /* Without this, flex's default flex-shrink: 1 squashes these below their
    natural content height to fit inside the 100% height above, instead of
    the page just scrolling past them — the container should overflow, not

@@ -4,6 +4,11 @@ export type ServiceStatus = "healthy" | "down";
 export type ServiceKind = "api" | "infra";
 
 export interface RegisteredService {
+  /** Human-facing display name — separate from the registry key (the name
+   * this service is looked up by, e.g. `registry["media-importer-api"]`),
+   * which stays stable across a display-name rename so it doesn't leave
+   * behind a stale duplicate entry. */
+  title: string;
   base_url: string;
   registered_at: string;
   kind: ServiceKind;

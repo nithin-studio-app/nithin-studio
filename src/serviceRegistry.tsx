@@ -25,6 +25,7 @@ export function ServiceRegistryProvider({ children }: { children: ReactNode }) {
       const next: Registry = {};
       for (const service of services) {
         next[service.name] = {
+          title: service.title,
           base_url: service.base_url,
           registered_at: service.registered_at,
           kind: service.kind,

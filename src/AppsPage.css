@@ -6,6 +6,12 @@
   min-height: 0;
 }
 
+/* Same card tint as DashboardPage.css — see its comment. */
+.apps-page .card {
+  background: #17181b;
+  border-color: #7e57c2; /* Material "Deep Purple 400" */
+}
+
 .apps-header {
   display: flex;
   align-items: center;
@@ -15,6 +21,82 @@
 
 .apps-search {
   flex: 0 1 22rem;
+}
+
+/* The shared TextField's default outlined style is a transparent fill
+   with a near-black border — invisible against this page's indigo
+   background. Filled dark + a visible purple border instead, matching the
+   card treatment above. */
+.apps-search .textfield-outlined .textfield-input-wrapper {
+  background: #17181b;
+  border-color: #7e57c2; /* Material "Deep Purple 400" */
+}
+
+.apps-search .textfield-adornment {
+  color: #b39ddb; /* Material "Deep Purple 200" */
+}
+
+.apps-search .textfield-input::placeholder {
+  color: #b39ddb; /* Material "Deep Purple 200" */
+}
+
+.apps-search-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: #b39ddb; /* Material "Deep Purple 200" */
+  cursor: pointer;
+}
+
+.apps-search-clear:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f0f0f0;
+}
+
+.apps-search-clear svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.apps-empty-state-wrapper {
+  grid-column: 1 / -1;
+}
+
+.apps-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.apps-empty-state-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #b39ddb; /* Material "Deep Purple 200" */
+  margin-bottom: 0.5rem;
+}
+
+.apps-empty-state-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.apps-empty-state .button {
+  margin-top: 0.75rem;
 }
 
 .apps-card-title {
