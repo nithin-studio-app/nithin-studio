@@ -5,6 +5,10 @@
   height: 100%;
   min-height: 0;
   overflow-y: auto;
+  box-sizing: border-box;
+  /* This page's own inset — .layout-content itself no longer pads its
+     children, since not every page wants the same spacing. */
+  padding: 2rem;
 }
 
 /* Same card tint as DashboardPage.css — see its comment. */

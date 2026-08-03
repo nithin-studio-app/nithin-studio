@@ -49,9 +49,9 @@
 .layout-content {
   flex: 1;
   min-height: 0;
-  padding: 2rem;
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
   background: #5c6bc0; /* Material "Indigo 400" */
+  padding: 2rem;
 }
